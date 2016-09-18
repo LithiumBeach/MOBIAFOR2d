@@ -3,8 +3,8 @@
 
 #include "Vector2.h"
 #include "Transform.h"
-#include "Particle.h"
 #include "MathDefs.h"
+#include "ParticleSystem.h"
 
 #include <memory>
 
@@ -31,12 +31,18 @@ void main()
 	
 	//printf("%f", mob_core::math::WORLD_TRANSFORM.scale.y);
 
-	Particle tmpe(trans, mob_phys::Particle::Integrator::EULER);
-	tmpe.Integrate(1.0f);
-	Particle tmpv(trans, mob_phys::Particle::Integrator::VERLET);
-	tmpv.Integrate(1.0f);
-	Particle tmpr(trans, mob_phys::Particle::Integrator::RK4);
-	tmpr.Integrate(1.0f);
+	//Particle tmpe(trans, mob_phys::Particle::Integrator::EULER);
+	//tmpe.Integrate(1.0f);
+	//Particle tmpv(trans, mob_phys::Particle::Integrator::VERLET);
+	//tmpv.Integrate(1.0f);
+	//Particle tmpr(trans, mob_phys::Particle::Integrator::RK4);
+	//tmpr.Integrate(1.0f);
+
+	
+
+
+
+
 	
 	system("PAUSE");
 }

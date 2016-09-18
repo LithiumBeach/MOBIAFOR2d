@@ -4,8 +4,6 @@
 #include "Transform.h"
 #include "CoreTypes.h"
 
-#include <memory>
-
 namespace mob_phys
 {
 	class Particle
@@ -25,12 +23,14 @@ namespace mob_phys
 		};
 
 	public:
-		Particle(Transform a_trans, Integrator a_integrator) 
+		//constructor: default parent to world parent
+		Particle(Transform a_trans, Integrator a_integrator = Integrator::EULER) 
 										:	m_trans(a_trans), m_parent(mob_core::math::WORLD_TRANSFORM_PTR),
 											m_velocity(Vector2(0)), m_acceleration(Vector2(0)),
 											m_force(Vector2(0)), m_mass(1.0f), m_drag(0.0f),
 											m_angular_velocity(0.0f), m_angular_acceleration(0.0f), m_angular_drag(0.0f)
 		{
+			//point to an integrator function.
 			switch (a_integrator)
 			{
 			case EULER:
@@ -48,12 +48,14 @@ namespace mob_phys
 			}
 		};
 
-		Particle(Transform a_trans, Transform* a_parent_trans, Integrator a_integrator) 
+		//constructor: custom parent
+		Particle(Transform a_trans, Transform* a_parent_trans, Integrator a_integrator = Integrator::EULER)
 										:	m_trans(a_trans), m_parent(a_parent_trans), 
 											m_velocity(Vector2(0)), m_acceleration(Vector2(0)),
 											m_force(Vector2(0)), m_mass(1.0f), m_drag(0.0f),
 											m_angular_velocity(0.0f), m_angular_acceleration(0.0f), m_angular_drag(0.0f)
 		{
+			//point to an integrator function
 			switch (a_integrator)
 			{
 			case EULER:
@@ -71,6 +73,7 @@ namespace mob_phys
 			}
 		};
 	
+		~Particle();
 
 	public:
 		void Integrate(time_type a_deltaTime);
