@@ -25,11 +25,18 @@ void main()
 	
 	//Particle p = new Particle(Transform());
 	Transform trans(Vector2(0, 0), DEG_TO_RAD * 90.0f);
-	std::shared_ptr<Particle> sp_particle(new Particle(trans));
+	//std::shared_ptr<Particle> sp_particle(new Particle(trans));
 
 	//printf("%f, %f", sp_particle->GetTEMP());
 	
 	//printf("%f", mob_core::math::WORLD_TRANSFORM.scale.y);
+
+	Particle tmpe(trans, mob_phys::Particle::Integrator::EULER);
+	tmpe.Integrate(1.0f);
+	Particle tmpv(trans, mob_phys::Particle::Integrator::VERLET);
+	tmpv.Integrate(1.0f);
+	Particle tmpr(trans, mob_phys::Particle::Integrator::RK4);
+	tmpr.Integrate(1.0f);
 	
 	system("PAUSE");
 }

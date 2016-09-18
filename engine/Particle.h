@@ -17,17 +17,68 @@ namespace mob_phys
 		typedef mob_core::types::time_type time_type;
 
 	public:
-		Particle(){};
-		Particle(Transform a_trans) :	m_trans(a_trans), m_parent(mob_core::math::WORLD_TRANSFORM_PTR),
-										m_velocity(Vector2(0)), m_acceleration(Vector2(0)),
-										m_force(Vector2(0)), m_mass(1.0f), m_drag(0.0f),
-										m_angular_velocity(0.0f), m_angular_acceleration(0.0f), m_angular_drag(0.0f){};
+		enum Integrator
+		{
+			EULER = 0,
+			VERLET,
+			RK4
+		};
 
-		Particle(Transform a_trans, Transform* a_parent_trans) :	m_trans(a_trans), m_parent(a_parent_trans),
-																	m_velocity(Vector2(0)), m_acceleration(Vector2(0)),
-																	m_force(Vector2(0)), m_mass(1.0f), m_drag(0.0f),
-																	m_angular_velocity(0.0f), m_angular_acceleration(0.0f), m_angular_drag(0.0f){};
+	public:
+		Particle(Transform a_trans, Integrator a_integrator) 
+										:	m_trans(a_trans), m_parent(mob_core::math::WORLD_TRANSFORM_PTR),
+											m_velocity(Vector2(0)), m_acceleration(Vector2(0)),
+											m_force(Vector2(0)), m_mass(1.0f), m_drag(0.0f),
+											m_angular_velocity(0.0f), m_angular_acceleration(0.0f), m_angular_drag(0.0f)
+		{
+			switch (a_integrator)
+			{
+			case EULER:
+				m_integrator_ptr = &Particle::IntegrateEuler;
+				break;
+			case VERLET:
+				m_integrator_ptr = &Particle::IntegrateVerlet;
+				break;
+			case RK4:
+				m_integrator_ptr = &Particle::IntegrateRK4;
+				break;
+			default:
+				m_integrator_ptr = &Particle::IntegrateEuler;
+				break;
+			}
+		};
+
+		Particle(Transform a_trans, Transform* a_parent_trans, Integrator a_integrator) 
+										:	m_trans(a_trans), m_parent(a_parent_trans), 
+											m_velocity(Vector2(0)), m_acceleration(Vector2(0)),
+											m_force(Vector2(0)), m_mass(1.0f), m_drag(0.0f),
+											m_angular_velocity(0.0f), m_angular_acceleration(0.0f), m_angular_drag(0.0f)
+		{
+			switch (a_integrator)
+			{
+			case EULER:
+				m_integrator_ptr = &Particle::IntegrateEuler;
+				break;
+			case VERLET:
+				m_integrator_ptr = &Particle::IntegrateVerlet;
+				break;
+			case RK4:
+				m_integrator_ptr = &Particle::IntegrateRK4;
+				break;
+			default:
+				m_integrator_ptr = &Particle::IntegrateEuler;
+				break;
+			}
+		};
 	
+
+	public:
+		void Integrate(time_type a_deltaTime);
+
+	private:
+		//integrator function pointer.
+		void (mob_phys::Particle::*m_integrator_ptr)(time_type);
+
 	public:
 		//brain cursor put more integrators here
 		void IntegrateEuler(time_type a_deltaTime);
