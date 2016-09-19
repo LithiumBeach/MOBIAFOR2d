@@ -31,7 +31,8 @@ void Particle::IntegrateEulerRotation(time_type a_deltaTime)
 
 void Particle::IntegrateVerlet(time_type a_deltaTime)
 {
-
+	IntegrateVerletPosition(a_deltaTime);
+	IntegrateVerletRotation(a_deltaTime);
 }
 
 void Particle::IntegrateVerletPosition(time_type a_deltaTime)
@@ -47,7 +48,8 @@ void Particle::IntegrateVerletRotation(time_type a_deltaTime)
 
 void Particle::IntegrateRK4(time_type a_deltaTime)
 {
-
+	IntegrateRK4Position(a_deltaTime);
+	IntegrateRK4Rotation(a_deltaTime);
 }
 
 void Particle::IntegrateRK4Position(time_type a_deltaTime)

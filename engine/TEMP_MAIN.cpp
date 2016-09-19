@@ -39,16 +39,16 @@ void main()
 	//Particle tmpr(trans, mob_phys::Particle::Integrator::RK4);
 	//tmpr.Integrate(1.0f);
 
-	Particle* a = new Particle(Transform());
-	Particle b(trans);
-	Entity x;
-	Particle* c = new Particle(trans);
+	//Particle* a = new Particle(Transform());
+	//Particle b(trans);
+	//Entity x;
+	//Particle* c = new Particle(trans);
 	
-	printf("%d\n", a->GetID());
-	printf("%d\n", b.GetID());
-	printf("%d\n", x.GetID());
-	printf("%d\n", c->GetID());
-
+	//printf("%d\n", a->GetID());
+	//printf("%d\n", b.GetID());
+	//printf("%d\n", x.GetID());
+	
+	//printf("%f\n", MathHelper::CLAMP(-5.0f, -2.0f, -490.0f));
 
 	
 	system("PAUSE");

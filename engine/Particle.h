@@ -4,9 +4,17 @@
 #include "Transform.h"
 #include "CoreTypes.h"
 #include "Entity.h"
+#include "MathDefs.h"
 
 namespace mob_phys
 {
+	namespace bounds
+	{
+		const float MIN_MASS = 0.0001f;
+		const float MAX_MASS = FLT_MAX;
+	}
+
+
 	class Particle : public Entity
 	{
 	public:
@@ -29,7 +37,7 @@ namespace mob_phys
 										:	m_trans(a_trans), m_parent(mob_core::math::WORLD_TRANSFORM_PTR),
 											m_velocity(Vector2(0)), m_acceleration(Vector2(0)),
 											m_force(Vector2(0)), m_mass(1.0f), m_drag(0.0f),
-											m_angular_velocity(0.0f), m_angular_acceleration(0.0f), m_angular_drag(0.0f)
+											m_angular_velocity(0.0f), m_angular_acceleration(0.0f), m_angular_drag(0.0f), m_torque(0.0f)
 		{
 			//point to an integrator function.
 			switch (a_integrator)
@@ -47,6 +55,8 @@ namespace mob_phys
 				m_integrator_ptr = &Particle::IntegrateEuler;
 				break;
 			}
+			//clamp mass
+			MathHelper::CLAMP(m_mass, bounds::MIN_MASS, bounds::MAX_MASS);
 		};
 
 		//constructor: custom parent
@@ -54,7 +64,7 @@ namespace mob_phys
 										:	m_trans(a_trans), m_parent(a_parent_trans), 
 											m_velocity(Vector2(0)), m_acceleration(Vector2(0)),
 											m_force(Vector2(0)), m_mass(1.0f), m_drag(0.0f),
-											m_angular_velocity(0.0f), m_angular_acceleration(0.0f), m_angular_drag(0.0f)
+											m_angular_velocity(0.0f), m_angular_acceleration(0.0f), m_angular_drag(0.0f), m_torque(0.0f)
 		{
 			//point to an integrator function
 			switch (a_integrator)
@@ -72,6 +82,8 @@ namespace mob_phys
 				m_integrator_ptr = &Particle::IntegrateEuler;
 				break;
 			}
+			//clamp mass
+			MathHelper::CLAMP(m_mass, bounds::MIN_MASS, bounds::MAX_MASS);
 		};
 	
 		~Particle();
@@ -111,12 +123,14 @@ namespace mob_phys
 		Vector2 m_acceleration;
 
 		Vector2 m_force;
-		Vector2 m_mass;
+		real m_mass;
 		real m_drag;
 
 		real m_angular_velocity;
 		real m_angular_acceleration;
 		real m_angular_drag;
+
+		real m_torque;
 	};
 }
 
