@@ -12,6 +12,8 @@ Collider.cpp
 ConvexCollider.h
 ConvexCollider.cpp
 CoreTypes.h
+Entity.h
+Entity.cpp
 Error.h
 Error.cpp
 MathDefs.h

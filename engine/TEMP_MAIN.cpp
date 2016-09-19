@@ -11,6 +11,7 @@
 typedef mob_core::math::Vector2 Vector2;
 typedef mob_core::math::Transform Transform;
 typedef mob_phys::Particle Particle;
+typedef mob_phys::Entity Entity;
 
 void main()
 {
@@ -24,7 +25,7 @@ void main()
 	//printf("%f", t.GetDegrees());
 	
 	//Particle p = new Particle(Transform());
-	Transform trans(Vector2(0, 0), DEG_TO_RAD * 90.0f);
+	Transform trans(Vector2(0), DEG_TO_RAD * 90.0f);
 	//std::shared_ptr<Particle> sp_particle(new Particle(trans));
 
 	//printf("%f, %f", sp_particle->GetTEMP());
@@ -38,9 +39,15 @@ void main()
 	//Particle tmpr(trans, mob_phys::Particle::Integrator::RK4);
 	//tmpr.Integrate(1.0f);
 
+	Particle* a = new Particle(Transform());
+	Particle b(trans);
+	Entity x;
+	Particle* c = new Particle(trans);
 	
-
-
+	printf("%d\n", a->GetID());
+	printf("%d\n", b.GetID());
+	printf("%d\n", x.GetID());
+	printf("%d\n", c->GetID());
 
 
 	

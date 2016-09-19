@@ -3,7 +3,7 @@
 
 #include "Particle.h"
 
-#include <vector>
+#include <map>
 
 namespace mob_phys
 {
@@ -21,11 +21,11 @@ namespace mob_phys
 		~ParticleSystem();
 		
 	private:
-		std::vector<Particle> m_particles;
+		std::map<unsigned int, Particle*> m_particle_map;
 
 	public:
-		void AddParticle(Particle a_particle);
-		bool DestroyParticle(Particle a_particle);
+		void AddParticle(Particle* a_particle);
+		bool DestroyParticle(Particle* a_particle);
 
 	public:
 		void Update(time_type a_deltaTime);

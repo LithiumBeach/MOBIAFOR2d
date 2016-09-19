@@ -3,10 +3,11 @@
 
 #include "Transform.h"
 #include "CoreTypes.h"
+#include "Entity.h"
 
 namespace mob_phys
 {
-	class Particle
+	class Particle : public Entity
 	{
 	public:
 		typedef mob_core::math::Transform Transform;
